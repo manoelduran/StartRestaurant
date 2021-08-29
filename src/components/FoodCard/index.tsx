@@ -4,17 +4,17 @@ import { Container, ImageDiv, Content, Footer } from './styles';
 
 
 interface FoodProps {
-  id: number;
+  id: string;
   name: string;
   description: string;
   price: number;
   image: string;
-  handleDelete: (id: number) => void;
+  handleDelete: (id: string) => void;
 }
 
 export default function FoodCard({ image, price, description, id, name,  handleDelete }: FoodProps) {
-
   return (
+    
     <Container >
       <ImageDiv>
         <img src={image} alt={name} />

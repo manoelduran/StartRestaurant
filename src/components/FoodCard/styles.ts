@@ -16,6 +16,7 @@ background: #ffb84d;
     img {
     pointer-events: none;
     user-select: none;
+    color: red;
   }
 `;
 export const Content = styled.section`

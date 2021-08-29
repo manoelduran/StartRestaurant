@@ -5,26 +5,23 @@ import { useState } from 'react';
 
 
 interface IFood {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
+  id: string;
+  foodName: string;
+  foodDescription: string;
+  foodPrice: number;
+  foodIimage: string;
 }
 
 interface AddFood {
-  image: string;
   name: string;
   price: string;
   description: string;
 }
 
 export default function FoodList() {
-  const [foods, setFoods] = useState<IFood[]>([])
-
-
-  function handleDelete(id: number) {
-    setFoods(foods => foods.filter(food => food.id !== id));
+let object = JSON.parse(localStorage.getItem('foods')!);
+console.log(object.foods)
+  function handleDelete(id: string) {
   }
 
   return (
@@ -32,13 +29,14 @@ export default function FoodList() {
       <Header />
 
       <FoodsContainer >
-        {foods.map((food) => (
-          <FoodCard
-            image={food.image}
-            name={food.name}
+        
+        {object?.foods.map((food: IFood) => (
+          <FoodCard key={food.id}
+            image={food.foodIimage}
+            name={food.foodName}
             id={food.id}
-            description={food.description}
-            price={food.price}
+            description={food.foodDescription}
+            price={food.foodPrice}
             handleDelete={handleDelete} />
         ))}
       </FoodsContainer>
