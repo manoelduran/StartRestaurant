@@ -1,10 +1,11 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 
 
 export const Container = styled.div`
   background: #f0f0f5;
   border-radius: 8px;
+  margin-top: 2rem;
 `;
 export const ImageDiv = styled.div`
 background: #ffb84d;

@@ -1,43 +1,44 @@
-import { FormEvent, ReactNode, useState } from 'react';
+import { useContext } from 'react';
+import { FormEvent, useState } from 'react';
+import { FoodContext } from '../../context/FoodContext';
 import { Container, ModalDiv, ModalContent } from './styles'
 
-
-interface ModalProps {
-    onClose: () => void;
-    children: ReactNode;
-}
-export function Modal({ onClose}: ModalProps) {
+export function Modal() {
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
     const [description, setDescription] = useState('');
     const [image, setImage] = useState('');
+    const { handleCloseModal, foods } = useContext(FoodContext)
 
-    
-
-    async function handleAddNewDishe(event: FormEvent){
+    async function handleAddNewDishe(event: FormEvent) {
         event.preventDefault()
-        let object = JSON.parse(localStorage.getItem('foods')!)  ?? {foods: []};
-        object.foods.push({
-            id:new Date(),
+
+        foods.push({
+            id: String(new Date()),
             foodName: name,
             foodPrice: price,
             foodDescription: description,
             foodIimage: image
-        })
-        localStorage.setItem('foods', JSON.stringify(object));
-      }
+        });
+
+        localStorage.setItem('foods', JSON.stringify(foods));
+
+        handleCloseModal()
+    }
+
+
 
     return (
         <Container>
             <ModalDiv>
-                <button onClick={onClose}>Close</button>
+                <button onClick={handleCloseModal}>Close</button>
             </ModalDiv>
             <ModalContent>
                 <h2>Cadastrar Prato</h2>
                 <input value={image} onChange={event => setImage(event.target.value)} placeholder="Url da Imagem" />
                 <input value={name} onChange={event => setName(event.target.value)} placeholder="Nome" />
                 <input value={description} onChange={event => setDescription(event.target.value)} placeholder="Descrição" />
-                <input  value={price} onChange={event => setPrice(Number(event.target.value))} placeholder="Valor" />
+                <input value={price} onChange={event => setPrice(Number(event.target.value))} placeholder="Valor" />
                 <button type="submit" onClick={handleAddNewDishe}>Cadastrar</button>
             </ModalContent>
         </Container>

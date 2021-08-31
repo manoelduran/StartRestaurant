@@ -1,5 +1,6 @@
 import { FiEdit3, FiTrash } from 'react-icons/fi';
 import { Container, ImageDiv, Content, Footer } from './styles';
+import { useHistory } from "react-router-dom";
 
 
 
@@ -13,11 +14,14 @@ interface FoodProps {
 }
 
 export default function FoodCard({ image, price, description, id, name,  handleDelete }: FoodProps) {
+const router = useHistory();
+
+  
   return (
     
-    <Container >
+    <Container onClick={() => router.push(`/${id}`)}>
       <ImageDiv>
-        <img src={image} alt={name} />
+        <img src={image} width="340px" height="192px" alt={name} />
       </ImageDiv>
       <Content>
         <h2>{name}</h2>
@@ -28,6 +32,13 @@ export default function FoodCard({ image, price, description, id, name,  handleD
       </Content>
       <Footer>
         <div className="icon-container">
+        <button
+            type="button"
+            className="icon"    
+            
+          >
+            <FiEdit3 size={20} />
+          </button>
           <button
             type="button"
             className="icon"    

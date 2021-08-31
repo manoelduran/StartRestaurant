@@ -11,7 +11,6 @@ padding: 2rem 1rem 1rem 2rem;
 display: flex;
 align-items: center;
 justify-content: space-between;
-
 .HeaderButton{
   font-size: 1rem;
   color: #FFF;

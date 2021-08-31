@@ -1,7 +1,8 @@
 import Header from '../../components/Header';
 import FoodCard from '../../components/FoodCard';
 import { FoodsContainer } from './styles';
-import { useState } from 'react';
+import { useContext } from 'react';
+import { FoodContext } from '../../context/FoodContext';
 
 
 interface IFood {
@@ -12,25 +13,22 @@ interface IFood {
   foodIimage: string;
 }
 
-interface AddFood {
-  name: string;
-  price: string;
-  description: string;
-}
-
 export default function FoodList() {
-let object = JSON.parse(localStorage.getItem('foods')!);
-console.log(object.foods)
+  const {foods, setFoods} = useContext(FoodContext)
+
   function handleDelete(id: string) {
+    const filtered = foods.filter((food: IFood) => food.id !== id);
+
+    localStorage.setItem('foods', JSON.stringify(filtered));
+
+    setFoods(filtered);
   }
 
   return (
     <>
       <Header />
-
       <FoodsContainer >
-        
-        {object?.foods.map((food: IFood) => (
+        {foods.map((food: IFood) => (
           <FoodCard key={food.id}
             image={food.foodIimage}
             name={food.foodName}

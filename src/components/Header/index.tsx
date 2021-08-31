@@ -1,15 +1,13 @@
 import { Container, Content} from './styles';
 import Logo from '../../assets/Logo.png';
-import { useState } from 'react';
 import { Modal } from '../Modal';
+import { useContext } from 'react';
+import { FoodContext } from '../../context/FoodContext';
 
 
 
 export default function Header() {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  function handleOpenModal() {
-    setIsModalVisible(true)
-  }
+  const {isModalVisible,  handleOpenModal} = useContext(FoodContext)
   return (
     <Container>
       <Content>
@@ -17,8 +15,7 @@ export default function Header() {
         <button className="HeaderButton" type="button" onClick={handleOpenModal}>Novo Prato</button>
           {isModalVisible ?
 
-            <Modal onClose={() => setIsModalVisible(false)}>
-            </Modal>
+            <Modal />
 
             : null}
       </Content>
