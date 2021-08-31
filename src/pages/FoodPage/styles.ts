@@ -5,28 +5,20 @@ width: 100%;
 height: 100%;
 display: flex;
 align-items: center;
-justify-content: center;
 flex-direction: column;
 `;
 
 export const HeaderDiv = styled.div`
+width: 100% ;
+background: #CDCDCD;
+padding: 2rem;
 display: flex;
 align-items: center;
-justify-content: center;
-width: 100%;
-height: 10rem;
-background: #CDCDCD;
-  `;
-  export const TextDiv = styled.div`
-width: 100%;
+justify-content: space-between;
 h1{
-  width: 100%;
   color: #3d3d4d;
 }
-  `;
-  export const ButtonDiv = styled.div`
-
-  button{
+button{
   color: #FFF;
   background: #ea1d2c;
   border: 0;
