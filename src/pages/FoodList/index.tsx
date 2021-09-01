@@ -14,7 +14,7 @@ interface IFood {
 }
 
 export default function FoodList() {
-  const {foods, setFoods} = useContext(FoodContext)
+  const {foods, setFoods, handleEditModalOpen} = useContext(FoodContext)
 
   function handleDelete(id: string) {
     const filtered = foods.filter((food: IFood) => food.id !== id);
@@ -22,6 +22,10 @@ export default function FoodList() {
     localStorage.setItem('foods', JSON.stringify(filtered));
 
     setFoods(filtered);
+  }
+
+  function handleEditFood(id: string){
+handleEditModalOpen()
   }
 
   return (
@@ -35,6 +39,7 @@ export default function FoodList() {
             id={food.id}
             description={food.foodDescription}
             price={food.foodPrice}
+            handleEdit={handleEditFood}
             handleDelete={handleDelete} />
         ))}
       </FoodsContainer>
