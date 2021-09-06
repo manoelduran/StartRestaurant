@@ -9,20 +9,29 @@ interface IFood {
     foodDescription: string;
     foodPrice: number;
     foodIimage: string;
-  }
+}
 
-export function ModalEditFood({foodName, foodDescription, foodIimage, foodPrice}: IFood) {
+export function ModalEditFood({ id, foodName, foodDescription, foodIimage, foodPrice }: IFood) {
     const [name, setName] = useState(foodName);
     const [price, setPrice] = useState(foodPrice);
     const [description, setDescription] = useState(foodDescription);
     const [image, setImage] = useState(foodIimage);
-    const { handleEditModalClose, foods , setFoods} = useContext(FoodContext)
+    const { handleEditModalClose, foods, setFoods } = useContext(FoodContext)
     async function handleUpdated(event: FormEvent) {
         event.preventDefault()
 
+        const newFoods = foods.map((food) => food.id === id ? {
+            id: String(new Date()),
+            foodName: name,
+            foodPrice: price,
+            foodDescription: description,
+            foodIimage: image
+        } : food );
 
-            localStorage.setItem('foods', JSON.stringify(foods))
-    
+        setFoods(newFoods);
+
+        localStorage.setItem('foods', JSON.stringify(newFoods))
+
         handleEditModalClose()
     }
 
@@ -39,7 +48,7 @@ export function ModalEditFood({foodName, foodDescription, foodIimage, foodPrice}
                 <input value={name} onChange={event => setName(event.target.value)} placeholder="Nome" />
                 <input value={description} onChange={event => setDescription(event.target.value)} placeholder="Descrição" />
                 <input value={price} onChange={event => setPrice(Number(event.target.value))} placeholder="Valor" />
-                <button type="submit" onClick={() => handleUpdated}>Editar</button>
+                <button type="submit" onClick={handleUpdated}>Editar</button>
             </ModalContent>
         </Container>
     );

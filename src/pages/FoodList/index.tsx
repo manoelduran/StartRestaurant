@@ -3,6 +3,7 @@ import FoodCard from '../../components/FoodCard';
 import { FoodsContainer } from './styles';
 import { useContext } from 'react';
 import { FoodContext } from '../../context/FoodContext';
+import { ModalEditFood } from '../../components/ModalEditFood';
 
 
 interface IFood {
@@ -13,8 +14,9 @@ interface IFood {
   foodIimage: string;
 }
 
-export default function FoodList() {
-  const {foods, setFoods, handleEditModalOpen} = useContext(FoodContext)
+export default function FoodList({id, foodDescription, foodIimage, foodName, foodPrice}: IFood) {
+  
+  const {foods, setFoods, handleEditModalOpen, editModalOpen} = useContext(FoodContext)
 
   function handleDelete(id: string) {
     const filtered = foods.filter((food: IFood) => food.id !== id);
@@ -25,7 +27,12 @@ export default function FoodList() {
   }
 
   function handleEditFood(id: string){
+
 handleEditModalOpen()
+    const selectedFood = foods.filter((food : IFood) => food.id === id )
+    setFoods(selectedFood)
+    localStorage.setItem('foods', JSON.stringify(selectedFood));
+
   }
 
   return (
@@ -42,6 +49,7 @@ handleEditModalOpen()
             handleEdit={handleEditFood}
             handleDelete={handleDelete} />
         ))}
+
       </FoodsContainer>
     </>
   );

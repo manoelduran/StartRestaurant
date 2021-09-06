@@ -1,9 +1,10 @@
 import { FiEdit3, FiTrash } from 'react-icons/fi';
 import { Container, ImageDiv, Content, Footer } from './styles';
 import { useHistory } from "react-router-dom";
+import { ModalEditFood } from '../ModalEditFood';
 import { useContext } from 'react';
 import { FoodContext } from '../../context/FoodContext';
-import { ModalEditFood } from '../ModalEditFood';
+
 
 
 
@@ -19,8 +20,7 @@ interface FoodProps {
 
 export default function FoodCard({ image, price, description, id, name,  handleDelete , handleEdit}: FoodProps) {
 const router = useHistory();
-const {editModalOpen} = useContext(FoodContext);
-  
+const {editModalOpen} = useContext(FoodContext)
   return (
     
     <Container >
@@ -45,10 +45,11 @@ const {editModalOpen} = useContext(FoodContext);
           </button>
           {editModalOpen?
           
-          <ModalEditFood foodDescription={description} foodIimage={image} foodName={name} foodPrice={price} id={id} key={id}/>
+          <ModalEditFood id={id}foodName={name} foodPrice={price} foodDescription={description} foodIimage={image}/>
           :
           null
           }
+   
           <button
             type="button"
             className="icon"    
